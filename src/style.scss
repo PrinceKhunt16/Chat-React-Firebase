@@ -1,3 +1,21 @@
+@mixin mobile {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
 .formContainer {
   min-height: 100vh;
   height: 100%;
@@ -211,6 +229,7 @@
         padding: 10px;
         height: calc(100% - 120px);
         overflow-y: scroll;
+        scroll-behavior: smooth;
 
         .message {
           display: flex;
@@ -268,11 +287,11 @@
       .messages::-webkit-scrollbar {
         width: 5px;
       }
-       
+
       .messages::-webkit-scrollbar-thumb {
         background: #9391bc
       }
-      
+
       .messages::-webkit-scrollbar-thumb:hover {
         background: #817eac
       }
