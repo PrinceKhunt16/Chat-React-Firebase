@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import Img from "../img/img.png";
-import Attach from "../img/attach.png";
 import { AuthContext } from '../context/AuthContext';
 import { ChatContext } from '../context/ChatContext';
 import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import ChatIcon from "../img/chat.png";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -70,13 +70,11 @@ const Input = () => {
 
   return (
     <div className="input">
-        <input type="text" placeholder='Type something' value={text} onChange={(e) => setText(e.target.value)}/>
+        <img className='chatIcon' src={ChatIcon} alt="" />
+        <input type="text" placeholder='how are you ?' value={text} onChange={(e) => setText(e.target.value)}/>
         <div className="send">
-            <img src={Attach} alt="" />
             <input type="file" style={{display: "none"}} id="file" onChange={(e) => setImg(e.target.files[0])} />
-            <label htmlFor="file">
-                <img src={Img} alt="" />
-            </label>
+            <label htmlFor="file"><img src={Img} alt="" /></label>
             <button onClick={handleSend}>Send</button>
         </div>
     </div>

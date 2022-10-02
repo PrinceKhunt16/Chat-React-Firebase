@@ -24,6 +24,7 @@ const Chats = () => {
     }, [currentUser.uid]);
 
     const handleSelect = (u) => {
+        document.getElementById(u)
         dispatch({ type: "CHANGE_USER", payload: u });
     };
 
@@ -32,6 +33,7 @@ const Chats = () => {
             {Object.entries(chats)?.sort((a, b) => b[1].date - a[1].date).map((chat) => (
                 <div
                     className="userChat"
+                    id={chat[0]} 
                     key={chat[0]}
                     onClick={() => handleSelect(chat[1].userInfo)}
                 >
