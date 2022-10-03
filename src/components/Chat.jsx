@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ChatContext } from '../context/ChatContext';
 import Input from './Input'
 import Messages from './Messages'
@@ -20,7 +20,12 @@ const Chat = () => {
         </div>
         <div className="user">
           <img src={currentUser.photoURL} alt="" />
-          <button onClick={() => signOut(auth)}>logout</button>
+          <div className='popup'>
+            <div className='wrapper'>
+              <h2>Hyy {currentUser.displayName}</h2>
+              <button onClick={() => signOut(auth)}>logout</button>
+            </div>
+          </div>
         </div>
       </div>
       <Messages />

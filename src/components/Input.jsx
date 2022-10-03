@@ -70,8 +70,7 @@ const Input = () => {
 
   return (
     <div className="input">
-        <img className='chatIcon' src={ChatIcon} alt="" />
-        <input type="text" placeholder='how are you ?' value={text} onChange={(e) => setText(e.target.value)}/>
+        <input type="text" placeholder='Type a message' value={text} onChange={(e) => setText(e.target.value)}/>
         <div className="send">
             <input type="file" style={{display: "none"}} id="file" onChange={(e) => setImg(e.target.files[0])} />
             <label htmlFor="file"><img src={Img} alt="" /></label>

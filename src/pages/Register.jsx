@@ -7,6 +7,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const [profilePhoto, setProfilePhoto] = useState('');
     const [err, setErr] = useState(false);
     const navigate = useNavigate();
 
@@ -17,6 +18,8 @@ const Register = () => {
         const email = e.target[1].value;
         const password = e.target[2].value;
         const file = e.target[3].files[0];
+
+        setProfilePhoto(file);
 
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -43,15 +46,27 @@ const Register = () => {
                             });
 
                             await setDoc(doc(db, "userChats", res.user.uid), {});
-                            
+
                             navigate('/');
                         });
                 }
             );
 
-        } catch (err){
+        } catch (err) {
             setErr(true);
         }
+    }
+
+    const changeProfilePhoto = (e) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            if(reader.readyState === 2){
+                setProfilePhoto(reader.result);
+            }
+        }
+
+        reader.readAsDataURL(e.target.files[0]);
     }
 
     return (
@@ -59,14 +74,21 @@ const Register = () => {
             <div className='formWrapper'>
                 <span className="logo">My Chat - Register</span>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder='Your name' className="display name" />
-                    <input type="text" placeholder='Your email' className="email" />
-                    <input type="text" placeholder='Your password' className="password" />
-                    <input style={{ display: "none" }} type="file" id='file' />
-                    <label htmlFor="file">Add your Avtar</label>
-                    <button>Sign in</button>
+                    <input type="text" placeholder='Name' className="display name" />
+                    <input type="text" placeholder='Email' className="email" />
+                    <input type="text" placeholder='Password' className="password" />
+                    <input type="file" accept="image/*" onChange={changeProfilePhoto} id='file' />
+                    <div className='profilePhoto'>
+                        {profilePhoto && 
+                            <img src={profilePhoto} alt="" /> 
+                        }
+                        {profilePhoto 
+                            ? <label htmlFor="file">Change Photo</label>
+                            : <label htmlFor="file">Profile Photo</label>
+                        }
+                    </div>
+                    <button>Register</button>
                 </form>
-                {err && <p>Something went wrong.</p>}
                 <p>You do have an account ? <Link to="/login">Login</Link></p>
             </div>
         </div>

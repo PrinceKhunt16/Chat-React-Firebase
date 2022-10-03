@@ -27,12 +27,11 @@ const Register = () => {
             <div className='formWrapper'>
                 <span className="logo">My Chat - Login</span>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" placeholder='Your email' className="email" />
-                    <input type="text" placeholder='Your password' className="password" />
-                    <button>Sign up</button>
+                    <input type="text" placeholder='Email' className="email" />
+                    <input type="password" placeholder='Password' className="password" />
+                    <button>Login</button>
                 </form>
-                {err && <span>Something went wrong</span>}
-                <p>You do't have account ? <Link to="/register">Register</Link></p>
+                <p>You don't have account ? <Link to="/register">Register</Link></p>
             </div>
         </div>
     )
