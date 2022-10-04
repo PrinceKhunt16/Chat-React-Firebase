@@ -62,7 +62,7 @@
 
         &::placeholder {
           color: #000000;
-          opacity: 0.95;
+          opacity: 1;
         }
 
         &:focus {
@@ -74,12 +74,26 @@
         display: flex;
         gap: 10px;
 
-        img {
-          min-width: 45px;
-          max-width: 45px;
+        div {
+          position: relative;
           height: 45px;
-          border-radius: 50%;
-          object-fit: cover;
+
+          img {
+            min-width: 45px;
+            max-width: 45px;
+            min-height: 45px;
+            max-height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid black;
+          }
+
+          span {
+            position: absolute;
+            top: 12px;
+            left: 18px;
+            font-size: 19px;
+          }
         }
 
         label {
@@ -264,11 +278,11 @@
           align-items: center;
           position: relative;
           gap: 8px;
-          
+
           &:hover .popup {
             display: block;
           }
-          
+
           img {
             height: 43px;
             width: 43px;
@@ -276,7 +290,7 @@
             object-fit: cover;
             cursor: pointer;
           }
-          
+
           .popup {
             position: absolute;
             display: none;
@@ -345,8 +359,11 @@
 
             p {
               background-color: #ffffff;
-              padding: 11px 15px;
-              border-radius: 25px;
+              color: black;
+              line-height: 21px;
+              border-radius: 7.5px;
+              padding: 8px 9px;
+              box-shadow: 0 1px 0.5px rgb(11 20 26 / 10%);
             }
 
             img {
@@ -366,8 +383,17 @@
               p {
                 background-color: #d1f4cc;
                 color: black;
-                border-radius: 25px;
                 line-height: 21px;
+                border-radius: 7.5px;
+                padding: 8px 9px;
+                box-shadow: 0 1px 0.5px rgb(11 20 26 / 10%);
+              }
+
+              img {
+                width: 60%;
+                background-color: #d1f4cc;
+                padding: 5px;
+                border-radius: 1px;
               }
             }
           }
@@ -379,12 +405,12 @@
       }
 
       .messages::-webkit-scrollbar-thumb {
-        background: #6f7479;
+        background: #bcbcbc;
         transition: all 1s;
       }
 
       .messages::-webkit-scrollbar-thumb:hover {
-        background: #6f7479;
+        background: #8c8c8c;
       }
 
       .input {

@@ -19,8 +19,6 @@ const Register = () => {
         const password = e.target[2].value;
         const file = e.target[3].files[0];
 
-        setProfilePhoto(file);
-
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
             const storageRef = ref(storage, displayName);
@@ -61,7 +59,7 @@ const Register = () => {
         const reader = new FileReader();
 
         reader.onload = () => {
-            if(reader.readyState === 2){
+            if (reader.readyState === 2) {
                 setProfilePhoto(reader.result);
             }
         }
@@ -79,10 +77,11 @@ const Register = () => {
                     <input type="text" placeholder='Password' className="password" />
                     <input type="file" accept="image/*" onChange={changeProfilePhoto} id='file' />
                     <div className='profilePhoto'>
-                        {profilePhoto && 
-                            <img src={profilePhoto} alt="" /> 
-                        }
-                        {profilePhoto 
+                        <div>
+                            <img src={profilePhoto} alt="" />
+                            {!profilePhoto && <span>?</span> }
+                        </div>
+                        {profilePhoto
                             ? <label htmlFor="file">Change Photo</label>
                             : <label htmlFor="file">Profile Photo</label>
                         }

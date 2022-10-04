@@ -1,5 +1,5 @@
 import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { db } from "../firebase";
 import SearchIcon from "../img/search.png";
@@ -18,16 +18,13 @@ const Search = () => {
 
     try {
       const querySnapshot = await getDocs(q);
+
       querySnapshot.forEach((doc) => {
         setUser(doc.data());
       });
     } catch (err) {
       setErr(true);
     }
-  }
-
-  const handleKey = (e) => {
-    e.code === "Enter" && handleSearch();
   }
 
   const handleSelect = async () => {
@@ -39,7 +36,7 @@ const Search = () => {
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
-      if(!res.exists()){
+      if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
         await updateDoc(doc(db, "userChats", currentUser.uid), {
@@ -64,14 +61,22 @@ const Search = () => {
       console.log(err);
     }
 
-    setUser(null);
     setUsername("");
+    setUser(null);
   }
+
+  useEffect(() => {
+    if(username === ''){
+      setUser(null);
+    }
+
+    handleSearch();
+  }, [username]);
 
   return (
     <div className="search">
       <div className="searchForm">
-        <input onKeyDown={handleKey} onChange={(e) => setUsername(e.target.value)} type="text" placeholder='Search your friends' />
+        <input onChange={(e) => setUsername(e.target.value)} type="text" placeholder='Search your friends' />
         <img className='searchIcon' src={SearchIcon} alt="" />
       </div>
       {err && <span>User not found!</span>}

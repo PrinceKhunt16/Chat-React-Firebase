@@ -6,7 +6,6 @@ import { arrayUnion, doc, serverTimestamp, Timestamp, updateDoc } from 'firebase
 import { db, storage } from '../firebase';
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import ChatIcon from "../img/chat.png";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -38,7 +37,6 @@ const Input = () => {
                 });
         }
       );
-
     } else {
       await updateDoc(doc(db, "chats", data.chatId),{
         messages: arrayUnion({

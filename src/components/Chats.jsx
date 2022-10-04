@@ -24,7 +24,6 @@ const Chats = () => {
     }, [currentUser.uid]);
 
     const handleSelect = (u) => {
-        document.getElementById(u)
         dispatch({ type: "CHANGE_USER", payload: u });
     };
 
