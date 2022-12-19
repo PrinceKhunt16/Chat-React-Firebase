@@ -14,31 +14,31 @@ const Input = () => {
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
-    if(img){
+    if (img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
 
       uploadTask.on(
         (err) => {
-            console.log(err);
+          console.log(err);
         },
         () => {
-            getDownloadURL(uploadTask.snapshot.ref)
-                .then(async (downloadURL) => {
-                  await updateDoc(doc(db, "chats", data.chatId),{
-                    messages: arrayUnion({
-                      id: uuid(),
-                      text,
-                      senderId: currentUser.uid,
-                      date: Timestamp.now(),
-                      img: downloadURL
-                    })
-                  });
-                });
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then(async (downloadURL) => {
+              await updateDoc(doc(db, "chats", data.chatId), {
+                messages: arrayUnion({
+                  id: uuid(),
+                  text,
+                  senderId: currentUser.uid,
+                  date: Timestamp.now(),
+                  img: downloadURL
+                })
+              });
+            });
         }
       );
     } else {
-      await updateDoc(doc(db, "chats", data.chatId),{
+      await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
           text,
@@ -68,12 +68,12 @@ const Input = () => {
 
   return (
     <div className="input">
-        <input type="text" placeholder='Type a message' value={text} onChange={(e) => setText(e.target.value)}/>
-        <div className="send">
-            <input type="file" style={{display: "none"}} id="file" onChange={(e) => setImg(e.target.files[0])} />
-            <label htmlFor="file"><img src={Img} alt="" /></label>
-            <button onClick={handleSend}>Send</button>
-        </div>
+      <input type="text" placeholder='Type a message' value={text} onChange={(e) => setText(e.target.value)} />
+      <div className="send">
+        <input type="file" style={{ display: "none" }} id="file" onChange={(e) => setImg(e.target.files[0])} />
+        <label htmlFor="file"><img src={Img} alt="" /></label>
+        <button onClick={handleSend}>Send</button>
+      </div>
     </div>
   )
 }

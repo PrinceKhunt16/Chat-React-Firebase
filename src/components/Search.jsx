@@ -79,7 +79,6 @@ const Search = () => {
         <input onChange={(e) => setUsername(e.target.value)} type="text" placeholder='Search your friends' />
         <img className='searchIcon' src={SearchIcon} alt="" />
       </div>
-      {err && <span>User not found!</span>}
       {user &&
         <div className="userChat" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />
